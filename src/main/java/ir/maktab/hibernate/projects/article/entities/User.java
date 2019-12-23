@@ -17,12 +17,15 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private int id;
+    private Integer id;
 
     @Column(nullable = false)
     private String username;
 
+    @Column(name = "national_code")
     private String nationalCode;
+
+    @Column(name = "birth_day")
     private Date birthDay;
 
     @Column(nullable = false)

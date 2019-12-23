@@ -1,4 +1,4 @@
-package ir.maktab.hibernate.projects.article.config.hibernate;
+package ir.maktab.hibernate.projects.article.core.hibernate;
 
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
