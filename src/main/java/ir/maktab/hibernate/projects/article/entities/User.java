@@ -5,9 +5,12 @@ import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 @Data
 @AllArgsConstructor
@@ -31,6 +34,9 @@ public class User {
     @Column(nullable = false)
     private String password;
 
+    @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private List<Article> articles = new ArrayList<>();
 
 
 }

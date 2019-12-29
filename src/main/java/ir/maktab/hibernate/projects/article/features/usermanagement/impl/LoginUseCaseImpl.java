@@ -5,21 +5,22 @@ import ir.maktab.hibernate.projects.article.core.share.AuthenticationService;
 import ir.maktab.hibernate.projects.article.entities.User;
 import ir.maktab.hibernate.projects.article.features.usermanagement.usecases.LoginUseCase;
 import org.hibernate.Session;
-import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
 
 public class LoginUseCaseImpl implements LoginUseCase {
 
     @Override
-    public void login(String username, String password) {
-        User user = null;
+    public void login(User user) {
+
         AuthenticationService.getInstance().setLoginUser(null);
-        SessionFactory sessionFactory = HibernateUtil.getSessionFactory();
-        Session session = sessionFactory.openSession();
-        Query query = session.createQuery("from User as u where u.username >:username and u.password >:password");
-        query.setParameter("username" , username);
-        query.setParameter("password" , password);
-        user = (User) query.uniqueResult();
+
+        Session session = HibernateUtil.getSessionFactory().openSession();
+
+        Query query = session.createQuery("from User as u where u.username =: username and u.password =: password");
+        query.setParameter("username" , user.getUsername());
+        query.setParameter("password" , user.getPassword());
+        user = (User) query.list().get(0);
+
         session.close();
         AuthenticationService.getInstance().setLoginUser(user);
     }

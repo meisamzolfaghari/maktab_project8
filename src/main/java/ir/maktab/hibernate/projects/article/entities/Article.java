@@ -3,6 +3,7 @@ package ir.maktab.hibernate.projects.article.entities;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 import javax.persistence.*;
 import java.util.Date;
@@ -28,5 +29,13 @@ public class Article {
     private Date publishDate;
     @Column(name = "is_publised")
     private boolean isPublished;
+
+    @ManyToOne
+    @ToString.Exclude
+    private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @ToString.Exclude
+    private Category category;
 
 }

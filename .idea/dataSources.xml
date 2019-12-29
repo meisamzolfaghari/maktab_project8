@@ -1,11 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="DataSourceManagerImpl" format="xml" multifile-model="true">
-    <data-source source="LOCAL" name="@localhost" uuid="0ac6b86f-007e-44f0-b55b-57d97ee19ab3">
+    <data-source source="LOCAL" name="hibernate.cfg.xml/Hibernate" uuid="c0cb6986-b019-4d4e-9e3d-4236f6d04256">
       <driver-ref>mysql.8</driver-ref>
       <synchronize>true</synchronize>
+      <imported>true</imported>
+      <remarks>Hibernate
+
+C:/Users/DELL/IdeaProjects/maktab_project8/src/main/resources/hibernate.cfg.xml</remarks>
       <jdbc-driver>com.mysql.cj.jdbc.Driver</jdbc-driver>
-      <jdbc-url>jdbc:mysql://localhost:3306</jdbc-url>
+      <jdbc-url>jdbc:mysql://localhost/article?createDatabaseIfNotExist=true</jdbc-url>
     </data-source>
   </component>
 </project>
