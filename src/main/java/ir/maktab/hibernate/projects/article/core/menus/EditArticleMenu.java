@@ -2,15 +2,16 @@ package ir.maktab.hibernate.projects.article.core.menus;
 
 import ir.maktab.hibernate.projects.article.core.Actions;
 import ir.maktab.hibernate.projects.article.core.display.DisplayArticle;
-import ir.maktab.hibernate.projects.article.core.takefromuser.TakeCommand;
 import ir.maktab.hibernate.projects.article.entities.Article;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.impl.EditArticleByUserUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.usecases.EditArticleByUserUseCase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
-public class EditArticleMenu implements Menu {
+public class EditArticleMenu extends Menu {
     private Article articleForEdit;
 
     public EditArticleMenu(Article articleForEdit) {
@@ -20,13 +21,14 @@ public class EditArticleMenu implements Menu {
     @Override
     public void execute() {
         Scanner in = new Scanner(System.in);
-        String command = "";
+
+        command = "";
 
         while (!command.equals(Actions.back.name())) {
 
             DisplayArticle.displayFullVersion(articleForEdit);
 
-            command = TakeCommand.takeEditArticleCommand();
+            takeCommand();
 
             if (command.equals(Actions.exit.name())) {
                 System.out.println("\n bye bye!");
@@ -112,5 +114,33 @@ public class EditArticleMenu implements Menu {
                     System.out.println("\t\u274c Failed to Edit Articles Content!\n");
             }
         }
+    }
+
+    @Override
+    protected void displayMenu() {
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|                       Edit Article Menu                       |");
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|  publish         ---->    Publish chosen Article.             |");
+        System.out.println("\t|  unpublish       ---->    Unpublish chosen Article.           |");
+        System.out.println("\t|  title           ---->    Edit Title.                         |");
+        System.out.println("\t|  brief           ---->    Edit Brief.                         |");
+        System.out.println("\t|  content         ---->    Edit Content.                       |");
+        System.out.println("\t|  back            ---->    Back to Article Menu.               |");
+        System.out.println("\t|  exit            ---->    Exit.                               |");
+        System.out.println("\t+---------------------------------------------------------------+");
+    }
+
+    @Override
+    protected void setActions() {
+        actions = new ArrayList<>(
+                Arrays.asList(
+                        Actions.publish.name()
+                        , Actions.unpublish.name()
+                        , Actions.title.name()
+                        , Actions.brief.name()
+                        , Actions.content.name()
+                        , Actions.back.name()
+                        , Actions.exit.name()));
     }
 }

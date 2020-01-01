@@ -1,7 +1,5 @@
 package ir.maktab.hibernate.projects.article.entities;
 
-import com.sun.istack.Nullable;
-import jdk.jfr.Name;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -37,6 +35,5 @@ public class User {
     @OneToMany(mappedBy = "user" , fetch = FetchType.EAGER)
     @ToString.Exclude
     private List<Article> articles = new ArrayList<>();
-
 
 }

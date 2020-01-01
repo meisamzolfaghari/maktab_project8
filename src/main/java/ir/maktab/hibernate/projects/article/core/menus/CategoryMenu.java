@@ -4,23 +4,24 @@ import ir.maktab.hibernate.projects.article.core.Actions;
 import ir.maktab.hibernate.projects.article.core.display.DisplayCategory;
 import ir.maktab.hibernate.projects.article.core.functions.ChooseCategory;
 import ir.maktab.hibernate.projects.article.core.takefromuser.TakeCategoryToAdd;
-import ir.maktab.hibernate.projects.article.core.takefromuser.TakeCommand;
 import ir.maktab.hibernate.projects.article.entities.Category;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.impl.AddCategoryByUserUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.impl.FindAllCategoriesUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.usecases.AddCategoryByUserUseCase;
 import ir.maktab.hibernate.projects.article.features.articlemanagement.usecases.FindAllCategoriesUseCase;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class CategoryMenu implements Menu {
+public class CategoryMenu extends Menu {
 
     private Category chosenCategory;
 
     @Override
     public void execute() {
 
-        String command = "";
+        command = "";
 
         while (!command.equals("choose")) {
             FindAllCategoriesUseCase findAllCategoriesUseCase
@@ -33,7 +34,7 @@ public class CategoryMenu implements Menu {
             else
                 System.out.println("\t\u26A0 Category List is empty!");
 
-            command = TakeCommand.takeCategoryCommand();
+            takeCommand();
 
             if (command.equals(Actions.choose.name())) {
                 if (!categories.isEmpty())
@@ -57,6 +58,24 @@ public class CategoryMenu implements Menu {
                     System.out.println("\t\u274c Failed to Add Category!\n");
             }
         }
+    }
+
+    @Override
+    protected void displayMenu() {
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|                       Category Menu                           |");
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|  choose          ---->    choose a category.                  |");
+        System.out.println("\t|  add             ---->    add a category.                     |");
+        System.out.println("\t+---------------------------------------------------------------+");
+    }
+
+    @Override
+    protected void setActions() {
+        actions = new ArrayList<>(
+                Arrays.asList(
+                        Actions.choose.name()
+                        , Actions.add.name()));
     }
 
     private void setChosenCategory(Category chosenCategory) {

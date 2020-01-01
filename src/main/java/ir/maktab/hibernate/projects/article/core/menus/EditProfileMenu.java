@@ -2,7 +2,6 @@ package ir.maktab.hibernate.projects.article.core.menus;
 
 import ir.maktab.hibernate.projects.article.core.Actions;
 import ir.maktab.hibernate.projects.article.core.share.AuthenticationService;
-import ir.maktab.hibernate.projects.article.core.takefromuser.TakeCommand;
 import ir.maktab.hibernate.projects.article.entities.User;
 import ir.maktab.hibernate.projects.article.features.usermanagement.impl.EditProfileUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.usermanagement.impl.IsUniqueUsernameUseCaseImpl;
@@ -11,18 +10,21 @@ import ir.maktab.hibernate.projects.article.features.usermanagement.usecases.IsU
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Date;
 import java.util.Scanner;
 
-public class EditProfileMenu implements Menu {
+public class EditProfileMenu extends Menu {
     @Override
     public void execute() {
         Scanner in = new Scanner(System.in);
 
-        String command = "";
+        command = "";
 
         while (!command.equals(Actions.back.name())) {
-            command = TakeCommand.takeEditProfileCommand();
+
+            takeCommand();
 
             if (command.equals(Actions.exit.name())) {
                 System.out.println("\n bye bye!");
@@ -124,5 +126,31 @@ public class EditProfileMenu implements Menu {
                 }
             }
         }
+    }
+
+    @Override
+    protected void displayMenu() {
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|                       Edit Profile Menu                       |");
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|  username        ---->    Edit Username.                      |");
+        System.out.println("\t|  nationcode      ---->    Edit National Code .                |");
+        System.out.println("\t|  birthday        ---->    Edit Birthday.                      |");
+        System.out.println("\t|  password        ---->    Edit Password.                      |");
+        System.out.println("\t|  back            ---->    Back to Profile Menu.               |");
+        System.out.println("\t|  exit            ---->    Exit.                               |");
+        System.out.println("\t+---------------------------------------------------------------+");
+    }
+
+    @Override
+    protected void setActions() {
+        actions = new ArrayList<>(
+                Arrays.asList(
+                        Actions.username.name()
+                        , Actions.nationcode.name()
+                        , Actions.birhday.name()
+                        , Actions.password.name()
+                        , Actions.back.name()
+                        , Actions.exit.name()));
     }
 }

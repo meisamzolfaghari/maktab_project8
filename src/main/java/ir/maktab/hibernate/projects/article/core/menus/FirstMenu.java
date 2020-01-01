@@ -4,22 +4,23 @@ import ir.maktab.hibernate.projects.article.core.Actions;
 import ir.maktab.hibernate.projects.article.core.takefromuser.TakeUserInfoToRegister;
 import ir.maktab.hibernate.projects.article.core.takefromuser.TakeUserPassForLogin;
 import ir.maktab.hibernate.projects.article.core.share.AuthenticationService;
-import ir.maktab.hibernate.projects.article.core.takefromuser.TakeCommand;
 import ir.maktab.hibernate.projects.article.entities.User;
 import ir.maktab.hibernate.projects.article.features.usermanagement.impl.LoginUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.usermanagement.impl.RegisterUseCaseImpl;
 import ir.maktab.hibernate.projects.article.features.usermanagement.usecases.LoginUseCase;
 import ir.maktab.hibernate.projects.article.features.usermanagement.usecases.RegisterUseCase;
 
-public class FirstMenu implements Menu {
+import java.util.ArrayList;
+import java.util.Arrays;
+
+public class FirstMenu extends Menu {
 
     @Override
     public void execute() {
-        String command ;
 
         while (true) {
 
-            command = TakeCommand.takeFirstCommand();
+            takeCommand();
 
             if (command.equals(Actions.exit.name())) {
                 System.out.println("\n bye bye!");
@@ -62,5 +63,27 @@ public class FirstMenu implements Menu {
                     System.out.println("\t\u274c Register Failed!\n");
             }
         }
+    }
+
+    @Override
+    protected void displayMenu() {
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|                      First Menu                               |");
+        System.out.println("\t+---------------------------------------------------------------+");
+        System.out.println("\t|  articles        ---->    See all of Articles.                |");
+        System.out.println("\t|  login           ---->    Login.                              |");
+        System.out.println("\t|  register        ---->    Register.                           |");
+        System.out.println("\t|  exit            ---->    Exit.                               |");
+        System.out.println("\t+---------------------------------------------------------------+");
+    }
+
+    @Override
+    protected void setActions() {
+        actions = new ArrayList<>(
+                Arrays.asList(
+                        Actions.articles.name()
+                        , Actions.login.name()
+                        , Actions.register.name()
+                        , Actions.exit.name()));
     }
 }

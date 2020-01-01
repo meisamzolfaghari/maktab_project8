@@ -1,24 +1,16 @@
 package ir.maktab.hibernate.projects.article.core.menus;
 
 import ir.maktab.hibernate.projects.article.core.Actions;
-import ir.maktab.hibernate.projects.article.core.display.DisplayUser;
-import ir.maktab.hibernate.projects.article.core.share.AuthenticationService;
-import ir.maktab.hibernate.projects.article.entities.User;
 
 import java.util.ArrayList;
 import java.util.Arrays;
 
-public class ProfileMenu extends Menu {
-
+public class FinalMenu extends Menu {
     @Override
     public void execute() {
-
         command = "";
 
         while (!command.equals(Actions.back.name())) {
-            User loginUser = AuthenticationService.getInstance().getLoginUser();
-
-            DisplayUser.display(loginUser);
 
             takeCommand();
 
@@ -26,20 +18,13 @@ public class ProfileMenu extends Menu {
                 System.out.println("\n bye bye!");
                 System.exit(0);
             }
-
-            else if (command.equals(Actions.edit.name())) {
-                new EditProfileMenu().execute();
-            }
         }
     }
 
     @Override
     protected void displayMenu() {
         System.out.println("\t+---------------------------------------------------------------+");
-        System.out.println("\t|                     Profile Menu                              |");
-        System.out.println("\t+---------------------------------------------------------------+");
-        System.out.println("\t|  edit            ---->    Edit your Profile.                  |");
-        System.out.println("\t|  back            ---->    Back to User Menu.                  |");
+        System.out.println("\t|  back            ---->    Back to last Menu.                  |");
         System.out.println("\t|  exit            ---->    Exit.                               |");
         System.out.println("\t+---------------------------------------------------------------+");
     }
@@ -48,8 +33,7 @@ public class ProfileMenu extends Menu {
     protected void setActions() {
         actions = new ArrayList<>(
                 Arrays.asList(
-                        Actions.edit.name()
-                        , Actions.back.name()
+                        Actions.back.name()
                         , Actions.exit.name()));
     }
 }
