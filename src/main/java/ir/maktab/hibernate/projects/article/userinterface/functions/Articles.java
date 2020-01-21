@@ -1,0 +1,122 @@
+package ir.maktab.hibernate.projects.article.userinterface.functions;
+
+import ir.maktab.hibernate.projects.article.entities.Article;
+
+import java.util.Date;
+import java.util.List;
+import java.util.Scanner;
+
+public class Articles {
+    private static Scanner in1 = new Scanner(System.in);
+    private static Scanner in2 = new Scanner(System.in);
+
+    public static Article choose(List<Article> articles) {
+
+        if (articles.isEmpty()) return null;
+
+        Integer id;
+
+        System.out.print("\t\u29bf ID : ");
+        id = in2.nextInt();
+
+        for (Article article : articles)
+            if (id.equals(article.getId()))
+                return article;
+
+        System.out.println("\t\u26a0 Invalid ID!\n");
+        return null;
+
+    }
+
+    public static void displayAll(List<Article> articles) {
+
+        if (articles.isEmpty()) return;
+
+        System.out.println("------------------------------------------------------------------------------------" +
+                "\n                              Articles");
+        articles.forEach(article -> System.out.println(
+                ""
+                        + "------------------------------------------------------------------------------------"
+                        + "\nID= " + article.getId()
+                        + " , Category= '" + article.getCategory().getTitle()
+                        + "' , Title= '" + article.getTitle()
+                        + "' , Brief= '" + article.getBrief()
+                        + "'\n------------------------------------------------------------------------------------"));
+    }
+
+    public static void displayShortVersion(Article article) {
+
+        if (article == null) return;
+
+        System.out.println(
+                ""
+                        + "------------------------------------------------------------------------------------"
+                        + "\n    ID= " + article.getId()
+                        + "\n    Category= '" + article.getCategory().getTitle()
+                        + "'\n    Title= '" + article.getTitle()
+                        + "'\n    Brief= '" + article.getBrief()
+                        + "'\n    Content= '" + article.getContent()
+                        + "'\n    User= '" + article.getUser().getUsername()
+                        + "'\n------------------------------------------------------------------------------------");
+    }
+
+    public static void displayFullVersion(Article article) {
+
+        if (article == null) return;
+
+        String publishStatus = (article.isPublished()) ? "Published" : "Not Published";
+        System.out.println(
+                ""
+                        + "------------------------------------------------------------------------------------"
+                        + "\n    ID= " + article.getId()
+                        + "\n    Category= '" + article.getCategory().getTitle()
+                        + "'\n    Title= '" + article.getTitle()
+                        + "'\n    Brief= '" + article.getBrief()
+                        + "'\n    Content= '" + article.getContent()
+                        + "'\n    Create Date= " + article.getCreateDate()
+                        + "\n    Last Update Date= " + article.getLastUpdateDate()
+                        + "\n    Publish Date= " + article.getPublishDate()
+                        + "\n    Publish Status= '" + publishStatus
+                        + "'\n    User= '" + article.getUser().getUsername()
+                        + "'\n------------------------------------------------------------------------------------");
+    }
+
+    public static String takeTitle() {
+        System.out.print("\t\u29bf Title >>> ");
+        return in1.nextLine();
+    }
+
+    public static String takeBrief() {
+        System.out.print("\t\u29bf Brief >>> ");
+        return in1.nextLine();
+    }
+
+    public static String takeContent() {
+        System.out.print("\t\u29bf Content >>> ");
+        return in1.nextLine();
+    }
+
+    public static Date takeCurrentTime() {
+        return new Date(System.currentTimeMillis());
+    }
+
+    public static Boolean takePublishStatus() {
+        System.out.print("\t\u29bf do yo want to publish?(y for Yes and anything for No): ");
+        return in2.next().charAt(0) == 'y';
+    }
+
+    public static String takeNewTitle() {
+        System.out.print("\t\u29bf New Title >>> ");
+        return in1.nextLine();
+    }
+
+    public static String takeNewBrief() {
+        System.out.print("\t\u29bf New Brief >>> ");
+        return in1.nextLine();
+    }
+
+    public static String takeNewContent() {
+        System.out.print("\t\u29bf New Content >>> ");
+        return in1.nextLine();
+    }
+}

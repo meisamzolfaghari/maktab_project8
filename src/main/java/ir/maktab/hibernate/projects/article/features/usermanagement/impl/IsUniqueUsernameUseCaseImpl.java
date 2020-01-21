@@ -10,15 +10,17 @@ import java.util.List;
 public class IsUniqueUsernameUseCaseImpl implements IsUniqueUsernameUseCase {
     @Override
     public Boolean test(String username) {
-        Session session = HibernateUtil.getSessionFactory().openSession();
-
-        List<User> dbUsers = session.createQuery("from User ").list();
-        if (dbUsers.stream().anyMatch(dbUser -> dbUser.getUsername().equals(username))){
-            session.close();
-            return false;
+        if (username == null || username.isEmpty()) {
+            System.out.println("\t\u274c Failed to Check Username! Username Error.\n");
+            return null;
         }
 
-        session.close();
+        Session session = HibernateUtil.getSession();
+
+        List<User> users = session.createQuery("from User").list();
+        for (User user : users)
+            if (user.getUsername().equals(username))
+                return false;
         return true;
     }
 }

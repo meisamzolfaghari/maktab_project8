@@ -4,6 +4,6 @@ import ir.maktab.hibernate.projects.article.entities.User;
 
 import java.util.Date;
 
-public interface RegisterUseCase {
-    User register(String username, String nationalCode, Date birthday);
+public interface ChangeBirthdayUseCase {
+    User change(User user , Date newBirthday);
 }

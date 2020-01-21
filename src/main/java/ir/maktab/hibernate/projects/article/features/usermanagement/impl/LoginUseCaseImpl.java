@@ -5,24 +5,33 @@ import ir.maktab.hibernate.projects.article.core.share.AuthenticationService;
 import ir.maktab.hibernate.projects.article.entities.User;
 import ir.maktab.hibernate.projects.article.features.usermanagement.usecases.LoginUseCase;
 import org.hibernate.Session;
-import org.hibernate.query.Query;
+
+import java.util.List;
 
 public class LoginUseCaseImpl implements LoginUseCase {
-
     @Override
-    public void login(User user) {
+    public User login(String username, String password) {
+        if (username == null || username.isEmpty()) {
+            System.out.println("\t\u274c Login failed! Username Error\n");
+            return null;
+        }
+        if (password == null || password.isEmpty()) {
+            System.out.println("\t\u274c Login failed! Password Error.\n");
+            return null;
+        }
 
-        AuthenticationService.getInstance().setLoginUser(null);
+        Session session = HibernateUtil.getSession();
 
-        Session session = HibernateUtil.getSessionFactory().openSession();
+        List<User> users = session.createQuery("from User").list();
+        for (User user : users)
+            if (user.getUsername().equals(username)
+                    && user.getPassword().equals(password)) {
+                AuthenticationService.getInstance().setLoginUser(user);
+                System.out.println("\t\u2714 Login successful.\n");
+                return user;
+            }
 
-        Query query = session.createQuery("from User as u where u.username =: username and u.password =: password");
-        query.setParameter("username" , user.getUsername());
-        query.setParameter("password" , user.getPassword());
-        user = (User) query.list().get(0);
-
-        session.close();
-        AuthenticationService.getInstance().setLoginUser(user);
+        System.out.println("\t\u274c Login failed!\n");
+        return null;
     }
-
 }
